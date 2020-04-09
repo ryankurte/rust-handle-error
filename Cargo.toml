@@ -2,7 +2,7 @@
 name = "handle-error"
 description = "An error handling helper macro to avoid the constant if let Err(e) pattern"
 repository = "https://github.com/ryankurte/rust-handle-error"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["ryan <ryan@kurte.nz>"]
 readme = "README.md"
 edition = "2018"
