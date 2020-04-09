@@ -1,0 +1,14 @@
+[package]
+name = "handle-error"
+description = "An error handling helper macro to avoid the constant if let Err(e) pattern"
+repository = "https://github.com/ryankurte/rust-handle-error"
+version = "0.1.0"
+authors = ["ryan <ryan@kurte.nz>"]
+edition = "2018"
+license = "MPL-2.0"
+
+[dependencies]
+
+[dev-dependencies]
+log = "0.4.8"
+
