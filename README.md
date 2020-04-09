@@ -1,6 +1,6 @@
 # handle-error
 
-An error handling / bubbling macro to reduce rust error handling boilerplate.
+An error handling / bubbling macro to reduce rust error handling boilerplate where `?` doesn't work because the _site_ of the error matters.
 
 [![GitHub tag](https://img.shields.io/github/tag/ryankurte/rust-handle-error.svg)](https://github.com/ryankurte/rust-handle-error)
 [![Travis Build Status](https://travis-ci.com/ryankurte/rust-handle-error.svg?branch=master)](https://travis-ci.com/ryankurte/rust-handle-error)
