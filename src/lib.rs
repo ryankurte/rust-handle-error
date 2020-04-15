@@ -32,6 +32,24 @@
 //!   Ok(())
 //! }
 //! ```
+//! ```no_run
+//! #[macro_use]
+//! extern crate log;
+//! 
+//! #[macro_use]
+//! extern crate handle_error;
+//! 
+//! # type E = ();
+//! #
+//! # fn do_something() -> Result<(), E> {
+//! #     unimplemented!()
+//! # }
+//! #
+//! fn main() -> Result<(), E> {
+//!   let v = retry_error!(3, do_something(), "Failed to do something");
+//!   Ok(())
+//! }
+//! ```
 //! 
 //! Replacing the common patterns:
 //! 
@@ -100,4 +118,41 @@ macro_rules! handle_error {
     );
 }
 
+/// Retry a provided fallible function N times
+///
+/// This will optionally log a message, and returns the final error if all attempts fail
+#[macro_export]
+macro_rules! retry_error {
+    ($retries:expr, $fallible:expr, $($params:tt)*) => (
+        (|| {
+            let mut i = 0;
+            loop {
+                match $fallible {
+                    Ok(v) => break Ok(v),
+                    Err(e) if i < $retries => {
+                        i += 1;
+                    },
+                    Err(e) => {
+                        error!($($params)*);
+                        break Err(e)
+                    },
+                }
+            }
+        })()
+    );
+    ($retries:expr, $fallible:expr) => (
+        (|| {
+            let mut i = 0;
+            loop {
+                match $fallible {
+                    Ok(v) => break Ok(v),
+                    Err(e) if i < $retries => {
+                        i += 1;
+                    },
+                    Err(e) => break Err(e),
+                }
+            }
+        })()
+    );
+}
 
